@@ -1,0 +1,30 @@
+# Dependencies
+node_modules
+!pnpm-lock.yaml
+
+# Nuxt
+.nuxt
+.output
+.nitro
+.cache
+dist
+
+# Runtime data (content, uploaded photos, stats)
+.data
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Tooling
+.eslintcache
+coverage
+*.log
+*.tsbuildinfo
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store

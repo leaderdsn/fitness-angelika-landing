@@ -1,0 +1,12 @@
+services:
+  site:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    env_file: .env
+    volumes:
+      - site-data:/app/.data
+
+volumes:
+  site-data:

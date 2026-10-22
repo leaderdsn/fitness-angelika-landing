@@ -1,0 +1,63 @@
+@use "@/shared/styles" as ds
+
+.steps
+  position: relative
+  display: grid
+  gap: ds.$space-8
+
+  // Connecting line: vertical on mobile, horizontal on desktop
+  &::before
+    content: ''
+    position: absolute
+    top: 1.5rem
+    bottom: 1.5rem
+    left: 1.5rem
+    border-left: 1.5px dashed var(--color-border)
+
+    +ds.media(lg)
+      top: 1.5rem
+      right: 12%
+      bottom: auto
+      left: 12%
+      border-top: 1.5px dashed var(--color-border)
+      border-left: 0
+
+  +ds.media(lg)
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr))
+
+  &__item
+    position: relative
+    display: flex
+    gap: ds.$space-5
+
+    +ds.media(lg)
+      flex-direction: column
+      align-items: center
+      text-align: center
+
+  &__number
+    display: grid
+    place-items: center
+    flex-shrink: 0
+    width: 3rem
+    height: 3rem
+    border-radius: 50%
+    background: var(--color-accent)
+    color: var(--color-on-accent)
+    font-size: ds.$font-size-lg
+    font-weight: 700
+    box-shadow: 0 0 0 6px var(--color-bg)
+
+  &__body
+    display: flex
+    flex-direction: column
+    gap: ds.$space-2
+    padding-top: ds.$space-2
+
+  &__title
+    font-size: ds.$font-size-lg
+    font-weight: 700
+    line-height: ds.$line-height-snug
+
+  &__text
+    color: var(--color-muted)

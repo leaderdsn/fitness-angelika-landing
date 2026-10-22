@@ -1,0 +1,31 @@
+@use "@/shared/styles" as ds
+
+.editor-group
+  display: flex
+  flex-direction: column
+  gap: ds.$space-2
+  min-width: 0
+  margin: 0
+  padding: ds.$space-6
+  border: 1px solid var(--color-border)
+  border-radius: ds.$radius-lg
+  background: var(--color-surface)
+
+  &__title
+    float: left
+    width: 100%
+    padding: 0
+    font-size: ds.$font-size-lg
+    font-weight: 700
+
+  &__description
+    clear: both
+    font-size: ds.$font-size-sm
+    color: var(--color-muted)
+
+  &__body
+    display: flex
+    flex-direction: column
+    gap: ds.$space-4
+    clear: both
+    margin-top: ds.$space-2

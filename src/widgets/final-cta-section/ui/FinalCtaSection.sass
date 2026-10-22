@@ -1,0 +1,46 @@
+@use "@/shared/styles" as ds
+
+.final-cta
+  position: relative
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: ds.$space-5
+  padding-block: ds.$space-6
+  text-align: center
+
+  &__circle
+    position: absolute
+    border: 1px solid rgb(255 255 255 / 18%)
+    border-radius: 50%
+    pointer-events: none
+
+    &--one
+      top: -6rem
+      left: -8rem
+      width: 20rem
+      height: 20rem
+
+    &--two
+      right: -6rem
+      bottom: -8rem
+      width: 26rem
+      height: 26rem
+
+  &__title
+    position: relative
+    max-width: 44rem
+    +ds.display
+    font-size: ds.$font-size-3xl
+    text-wrap: balance
+
+  &__text
+    position: relative
+    max-width: 34rem
+    font-size: ds.$font-size-lg
+    opacity: 0.85
+
+  &__actions
+    position: relative
+    justify-content: center
+    margin-top: ds.$space-3

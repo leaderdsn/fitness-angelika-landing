@@ -1,0 +1,19 @@
+@use "@/shared/styles" as ds
+
+.page-section
+  // Decorative shapes may stick out of a section; never let them cause horizontal scroll.
+  overflow-x: clip
+  padding-block: ds.$space-16
+
+  +ds.media(md)
+    padding-block: ds.$space-24
+
+  &__inner
+    +ds.container
+
+  &--sand
+    background: var(--color-sand)
+
+  &--accent
+    background: var(--color-accent-strong)
+    color: var(--color-on-accent)

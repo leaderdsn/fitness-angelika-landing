@@ -1,0 +1,77 @@
+@use "@/shared/styles" as ds
+
+.pricing
+  display: grid
+  gap: ds.$space-6
+  align-items: stretch
+
+  +ds.media(lg)
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr))
+
+  &__card
+    position: relative
+    display: flex
+    flex-direction: column
+    gap: ds.$space-3
+    padding: ds.$space-8 ds.$space-6
+    border: 1px solid var(--color-border)
+    border-radius: ds.$radius-xl
+    background: var(--color-surface)
+
+    +ds.media(md)
+      padding: ds.$space-10 ds.$space-8
+
+    &--featured
+      border-color: transparent
+      background: var(--color-accent-strong)
+      color: var(--color-on-accent)
+      box-shadow: ds.$shadow-lg
+
+      +ds.media(lg)
+        transform: translateY(-1rem)
+
+  &__flag
+    align-self: flex-start
+    padding: ds.$space-1 ds.$space-3
+    border-radius: ds.$radius-full
+    background: rgb(255 255 255 / 16%)
+    font-size: ds.$font-size-xs
+    font-weight: 700
+    letter-spacing: 0.08em
+    text-transform: uppercase
+
+  &__title
+    +ds.display
+    font-size: ds.$font-size-2xl
+
+  &__format
+    font-size: ds.$font-size-sm
+    opacity: 0.75
+
+  &__price
+    padding-block: ds.$space-3
+    border-bottom: 1px solid rgb(128 100 106 / 25%)
+    font-size: ds.$font-size-xl
+    font-weight: 700
+
+  &__features
+    display: flex
+    flex: 1
+    flex-direction: column
+    gap: ds.$space-3
+    padding-block: ds.$space-2
+
+  &__feature
+    display: flex
+    align-items: flex-start
+    gap: ds.$space-3
+
+  &__check
+    margin-top: 0.2rem
+    color: var(--color-accent)
+
+  &__card--featured &__check
+    color: var(--color-accent-soft)
+
+  &__action
+    margin-top: ds.$space-4

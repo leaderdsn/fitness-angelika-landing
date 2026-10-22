@@ -1,0 +1,104 @@
+# Лендинг Анжелики Александровой — фитнес-терапевт и хореограф
+
+Продающий одностраничный сайт. Главная цель — привести посетителя в диалог: основная кнопка ведёт в **Telegram**, дополнительная — в **Instagram**. Тексты, цены, фото и ссылки редактируются в админке без программиста.
+
+## Возможности
+
+- **Лендинг с SSR** (Nuxt 4): секции «Узнаёте себя?», «Направления», «Как проходит работа», «Форматы и цены», «Обо мне», «Отзывы», «Вопросы», финальный призыв. На мобильных — липкая панель с кнопками мессенджеров.
+- **SEO**: title/description и Open Graph из админки, canonical, разметка schema.org `Person`, `robots.txt`.
+- **Админка** `/admin`:
+  - вход по паролю;
+  - ссылки на Telegram и Instagram, текст основной кнопки;
+  - тексты всех секций, списки (добавить, удалить, переместить);
+  - загрузка фото для главного экрана и блока «Обо мне»;
+  - статистика переходов в Telegram и Instagram за 30 дней.
+- **Без внешней БД**: контент, фото и статистика хранятся в файлах в каталоге `.data/`.
+
+Пока ссылка на Telegram не указана, основная кнопка открывает личные сообщения в Instagram.
+
+## Стек
+
+Nuxt 4 (Vue 3, SSR) · Nitro · TypeScript strict · Zod · Sass (indented `.sass`) · ESLint · Vitest · Husky + lint-staged + commitlint · pnpm.
+
+## Быстрый старт
+
+Нужны Node.js `^22.21 || ^24.11` и pnpm 11 (`corepack enable`).
+
+```bash
+pnpm install
+cp .env.example .env   # задайте пароль и секрет
+pnpm dev               # http://localhost:3000, админка — /admin
+```
+
+## Переменные окружения
+
+| Переменная | Назначение |
+|---|---|
+| `NUXT_ADMIN_PASSWORD` | Пароль для входа в админку. Пока он пустой, вход отключён. |
+| `NUXT_SESSION_SECRET` | Ключ шифрования cookie сессии, не короче 32 символов: `openssl rand -hex 32`. |
+| `NUXT_PUBLIC_SITE_URL` | Публичный адрес сайта, используется для canonical и Open Graph. |
+
+## Скрипты
+
+| Команда | Что делает |
+|---|---|
+| `pnpm dev` | Dev-сервер с горячей перезагрузкой |
+| `pnpm build` | Production-сборка в `.output/` |
+| `pnpm start` | Запуск собранного сервера |
+| `pnpm lint` / `pnpm lint:fix` | ESLint, включая проверку границ FSD |
+| `pnpm typecheck` | Проверка типов |
+| `pnpm test` | Unit-тесты (Vitest) |
+
+## Деплой
+
+### Docker
+
+```bash
+cp .env.example .env   # заполните значения
+docker compose up -d --build
+```
+
+Данные лежат в volume `site-data`, поэтому переживают пересборку контейнера.
+
+### Без Docker
+
+```bash
+pnpm install && pnpm build
+NUXT_ADMIN_PASSWORD=... NUXT_SESSION_SECRET=... NUXT_PUBLIC_SITE_URL=https://... node .output/server/index.mjs
+```
+
+Сервер запускайте из корня проекта: данные сохраняются в `./.data`. Сайт должен открываться по **HTTPS** (например, через nginx или Caddy), иначе браузер не сохранит cookie админки. Исключение — `localhost`.
+
+## Архитектура
+
+Код фронтенда организован по [Feature-Sliced Design](https://feature-sliced.design/) в `src/`. Служебные каталоги Nuxt перенесены в слой `app`.
+
+```
+src/
+  app/        # App.vue, AppError.vue, routes/ (маршруты Nuxt), middleware/, глобальные стили
+  pages/      # landing, admin-login, admin-dashboard, not-found
+  widgets/    # секции лендинга, шапка, подвал, мобильная панель, редактор контента, статистика
+  features/   # contact-link, admin-auth, edit-content, upload-image
+  entities/   # site-content, click-stats
+  shared/     # ui-kit, lib, styles (дизайн-токены)
+server/       # API (Nitro): api/, middleware/, utils/
+shared/       # Zod-схема контента, контент по умолчанию, ссылки — общие для клиента и сервера (#shared)
+```
+
+- Слой импортирует только из нижележащих слоёв, слайсы одного слоя друг друга не импортируют, наружу всё отдаётся через `index.ts`. Это проверяет ESLint.
+- Автоимпорт компонентов и composables из каталогов выключен, всё импортируется явно.
+- Стили компонента лежат в `.sass`-файле рядом с ним, классы именуются по БЭМ, токены подключаются через `@use "@/shared/styles" as ds`.
+
+## API
+
+| Метод | Путь | Доступ | Описание |
+|---|---|---|---|
+| GET | `/api/content` | публичный | Контент сайта |
+| POST | `/api/track` | публичный | Учёт клика по кнопке мессенджера |
+| GET | `/api/media/:id` | публичный | Загруженное фото |
+| POST | `/api/admin/login` | — | Вход (не больше 10 попыток за 15 минут с одного IP) |
+| POST | `/api/admin/logout` | — | Выход |
+| GET | `/api/admin/session` | — | Статус сессии |
+| PUT | `/api/admin/content` | админ | Сохранение контента (проверка по Zod-схеме) |
+| POST | `/api/admin/upload` | админ | Загрузка фото: JPG, PNG или WebP до 5 МБ, формат определяется по сигнатуре файла |
+| GET | `/api/admin/stats` | админ | Переходы за 30 дней |

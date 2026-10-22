@@ -1,0 +1,73 @@
+@use "@/shared/styles" as ds
+
+.stats-panel
+  display: flex
+  flex-direction: column
+  gap: ds.$space-4
+
+  &__header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: ds.$space-3
+
+  &__title
+    font-size: ds.$font-size-lg
+
+  &__error
+    color: var(--color-danger)
+
+  &__tiles
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    gap: ds.$space-3
+
+  &__tile
+    display: flex
+    flex-direction: column
+    gap: ds.$space-1
+    padding: ds.$space-4
+    border-radius: ds.$radius-md
+    background: var(--color-bg)
+
+  &__tile-label
+    display: inline-flex
+    align-items: center
+    gap: ds.$space-1
+    font-size: ds.$font-size-xs
+    color: var(--color-muted)
+
+  &__tile-value
+    font-size: ds.$font-size-2xl
+    font-weight: 700
+    font-variant-numeric: tabular-nums
+
+  &__table
+    width: 100%
+    border-collapse: collapse
+    font-size: ds.$font-size-sm
+    font-variant-numeric: tabular-nums
+
+    th,
+    td
+      padding: ds.$space-2 ds.$space-3
+      border-bottom: 1px solid var(--color-border)
+      text-align: right
+
+    th:first-child
+      text-align: left
+      font-weight: 500
+
+    thead th
+      font-size: ds.$font-size-xs
+      color: var(--color-muted)
+
+  &__caption
+    padding-bottom: ds.$space-2
+    font-size: ds.$font-size-xs
+    color: var(--color-muted)
+    text-align: left
+
+  &__hint
+    font-size: ds.$font-size-xs
+    color: var(--color-muted)

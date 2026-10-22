@@ -1,0 +1,60 @@
+@use "@/shared/styles" as ds
+
+.about
+  display: grid
+  gap: ds.$space-10
+  align-items: center
+
+  +ds.media(lg)
+    grid-template-columns: 0.8fr 1.2fr
+    gap: ds.$space-16
+
+  &__photo
+    width: min(100%, 26rem)
+    margin-inline: auto
+
+  &__content
+    display: flex
+    flex-direction: column
+    gap: ds.$space-5
+
+  &__eyebrow
+    +ds.eyebrow
+
+  &__title
+    +ds.display
+    font-size: ds.$font-size-3xl
+
+  &__text
+    display: flex
+    flex-direction: column
+    gap: ds.$space-4
+    font-size: ds.$font-size-lg
+    color: var(--color-muted)
+    white-space: pre-line
+
+  &__facts
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr))
+    gap: ds.$space-4
+    margin-top: ds.$space-4
+
+  &__fact
+    display: flex
+    flex-direction: column-reverse
+    justify-content: flex-end
+    gap: ds.$space-1
+    padding: ds.$space-5
+    border-radius: ds.$radius-lg
+    background: var(--color-surface)
+
+  &__fact-value
+    +ds.display
+    font-size: ds.$font-size-2xl
+    font-style: italic
+    color: var(--color-accent-strong)
+
+  &__fact-label
+    margin: 0
+    font-size: ds.$font-size-sm
+    color: var(--color-muted)

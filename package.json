@@ -1,0 +1,50 @@
+{
+  "name": "fitness-angelika-landing",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.18.0",
+  "description": "Продающий лендинг фитнес-терапевта Анжелики Александровой: Nuxt 4 (SSR) + Nitro API + админка",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "preview": "nuxt preview",
+    "start": "node .output/server/index.mjs",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepare": "husky"
+  },
+  "engines": {
+    "node": "^22.21.0 || ^24.11.0 || >=26.0.0",
+    "pnpm": ">=11.18.0"
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "not dead",
+    "not op_mini all"
+  ],
+  "dependencies": {
+    "nuxt": "^4.6.2",
+    "vue": "^3.5.44",
+    "vue-router": "^5.4.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
+    "@nuxt/eslint": "^1.17.0",
+    "@types/node": "^24.19.2",
+    "eslint": "^10.13.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "sass": "^1.106.0",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.5",
+    "vue-tsc": "^3.3.13"
+  }
+}

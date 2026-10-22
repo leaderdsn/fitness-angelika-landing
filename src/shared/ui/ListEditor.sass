@@ -1,0 +1,66 @@
+@use "@/shared/styles" as ds
+
+.list-editor
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  gap: ds.$space-3
+
+  &__list
+    display: flex
+    flex-direction: column
+    gap: ds.$space-3
+    width: 100%
+
+  &__item
+    border: 1px solid var(--color-border)
+    border-radius: ds.$radius-md
+    background: var(--color-bg)
+
+  &__toolbar
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: ds.$space-3
+    padding: ds.$space-2 ds.$space-2 ds.$space-2 ds.$space-4
+    border-bottom: 1px solid var(--color-border)
+
+  &__title
+    overflow: hidden
+    font-size: ds.$font-size-sm
+    font-weight: 600
+    white-space: nowrap
+    text-overflow: ellipsis
+
+  &__actions
+    display: flex
+    gap: ds.$space-1
+
+  &__action
+    display: grid
+    place-items: center
+    width: 2rem
+    height: 2rem
+    border: 0
+    border-radius: ds.$radius-sm
+    background: transparent
+    color: var(--color-muted)
+    cursor: pointer
+
+    &:hover:not(:disabled)
+      background: var(--color-sand)
+      color: var(--color-ink)
+
+    &:disabled
+      opacity: 0.35
+      cursor: default
+
+    &--danger:hover:not(:disabled)
+      background: var(--color-accent-soft)
+      color: var(--color-danger)
+
+  &__body
+    display: flex
+    flex-direction: column
+    gap: ds.$space-3
+    padding: ds.$space-4

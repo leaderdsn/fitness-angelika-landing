@@ -1,0 +1,127 @@
+@use "@/shared/styles" as ds
+
+.hero
+  position: relative
+  overflow: hidden
+  padding-block: ds.$space-10 ds.$space-16
+
+  +ds.media(lg)
+    padding-block: ds.$space-16 ds.$space-24
+
+  &__inner
+    +ds.container
+    display: grid
+    gap: ds.$space-12
+    align-items: center
+
+    +ds.media(lg)
+      grid-template-columns: 1.15fr 0.85fr
+      gap: ds.$space-16
+
+  &__content
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    gap: ds.$space-6
+
+  &__badge
+    padding: ds.$space-2 ds.$space-4
+    border: 1px solid var(--color-accent-soft)
+    border-radius: ds.$radius-full
+    background: var(--color-surface)
+    +ds.eyebrow
+
+  &__title
+    +ds.display
+    font-size: ds.$font-size-4xl
+    text-wrap: balance
+
+  &__subtitle
+    max-width: 36rem
+    font-size: ds.$font-size-lg
+    color: var(--color-muted)
+
+  &__promises
+    display: flex
+    flex-direction: column
+    gap: ds.$space-3
+    width: 100%
+    max-width: 34rem
+    padding: ds.$space-5 ds.$space-6
+    border-radius: ds.$radius-lg
+    background: var(--color-surface)
+    box-shadow: ds.$shadow-sm
+
+  &__promises-title
+    font-family: ds.$font-display
+    font-size: ds.$font-size-xl
+    font-style: italic
+    font-weight: 600
+    color: var(--color-accent-strong)
+
+  &__promise-list
+    display: flex
+    flex-direction: column
+    gap: ds.$space-3
+
+  &__promise
+    display: flex
+    align-items: flex-start
+    gap: ds.$space-3
+    font-weight: 500
+
+  &__promise-mark
+    display: grid
+    place-items: center
+    flex-shrink: 0
+    width: 1.5rem
+    height: 1.5rem
+    margin-top: 0.05rem
+    border-radius: 50%
+    background: var(--color-accent-soft)
+    color: var(--color-accent-strong)
+
+  &__actions
+    margin-top: ds.$space-2
+
+  &__visual
+    position: relative
+    width: min(100%, 26rem)
+    margin-inline: auto
+
+  &__halo
+    position: absolute
+    inset: -12% -18% auto auto
+    width: 85%
+    aspect-ratio: 1
+    border-radius: 50%
+    background: radial-gradient(circle, var(--color-accent-soft) 0%, transparent 70%)
+
+  &__photo
+    position: relative
+
+  &__chip
+    position: absolute
+    padding: ds.$space-2 ds.$space-4
+    border-radius: ds.$radius-full
+    background: var(--color-surface)
+    box-shadow: ds.$shadow-md
+    font-family: ds.$font-display
+    font-size: ds.$font-size-lg
+    font-style: italic
+    font-weight: 600
+    color: var(--color-accent-strong)
+
+    &--top
+      top: 18%
+      left: -1rem
+
+      +ds.media(md)
+        left: -2.5rem
+
+    &--bottom
+      right: -0.5rem
+      bottom: 12%
+
+      +ds.media(md)
+        right: -2rem

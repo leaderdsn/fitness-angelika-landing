@@ -1,0 +1,9 @@
+# pnpm settings (pnpm 11 reads them from this file, not from .npmrc).
+
+# Dependency install scripts are blocked by default; list each one explicitly.
+allowBuilds:
+  esbuild: true
+  '@parcel/watcher': false
+  vue-demi: false
+  # Ships prebuilt native bindings per platform; the postinstall only checks them.
+  unrs-resolver: false

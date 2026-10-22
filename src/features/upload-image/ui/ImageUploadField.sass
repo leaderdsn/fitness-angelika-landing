@@ -1,0 +1,52 @@
+@use "@/shared/styles" as ds
+
+.image-upload
+  display: flex
+  flex-direction: column
+  gap: ds.$space-2
+
+  &__label
+    font-size: ds.$font-size-sm
+    font-weight: 600
+
+  &__row
+    display: flex
+    flex-wrap: wrap
+    align-items: flex-start
+    gap: ds.$space-4
+
+  &__preview
+    display: grid
+    place-items: center
+    width: 6rem
+    aspect-ratio: 4 / 5
+    overflow: hidden
+    border: 1px dashed var(--color-border)
+    border-radius: ds.$radius-md
+    background: var(--color-bg)
+    font-size: ds.$font-size-xs
+    color: var(--color-muted)
+
+    img
+      width: 100%
+      height: 100%
+      object-fit: cover
+
+  &__actions
+    display: flex
+    flex: 1
+    flex-wrap: wrap
+    align-items: center
+    gap: ds.$space-2
+    min-width: 12rem
+
+  &__hint
+    flex-basis: 100%
+    font-size: ds.$font-size-xs
+    color: var(--color-muted)
+
+    &--error
+      color: var(--color-danger)
+
+  &__input
+    display: none

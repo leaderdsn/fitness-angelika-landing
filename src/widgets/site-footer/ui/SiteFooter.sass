@@ -1,0 +1,54 @@
+@use "@/shared/styles" as ds
+
+.site-footer
+  padding-block: ds.$space-12 ds.$space-24
+  background: var(--color-ink)
+  color: rgb(255 255 255 / 75%)
+
+  +ds.media(md)
+    padding-block: ds.$space-12
+
+  &__inner
+    +ds.container
+    display: grid
+    gap: ds.$space-6
+
+    +ds.media(md)
+      grid-template-columns: 1fr auto
+
+  &__name
+    +ds.display
+    font-size: ds.$font-size-2xl
+    color: var(--color-on-accent)
+
+  &__role
+    font-size: ds.$font-size-sm
+
+  &__links
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    gap: ds.$space-6
+
+  &__link
+    display: inline-flex
+    align-items: center
+    gap: ds.$space-2
+    font-weight: 600
+    text-decoration: none
+    color: var(--color-on-accent)
+
+    &:hover
+      color: var(--color-accent-soft)
+
+  &__note,
+  &__copy
+    font-size: ds.$font-size-xs
+
+  &__note
+    max-width: 40rem
+
+  &__copy
+    +ds.media(md)
+      justify-self: end
+      align-self: end

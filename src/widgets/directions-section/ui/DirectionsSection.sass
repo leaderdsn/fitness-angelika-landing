@@ -1,0 +1,43 @@
+@use "@/shared/styles" as ds
+
+.directions
+  display: grid
+  gap: ds.$space-4
+
+  +ds.media(md)
+    grid-template-columns: repeat(2, 1fr)
+    gap: ds.$space-6
+
+  +ds.media(xl)
+    grid-template-columns: repeat(4, 1fr)
+
+  &__card
+    display: flex
+    flex-direction: column
+    gap: ds.$space-3
+    padding: ds.$space-8 ds.$space-6
+    border-radius: ds.$radius-lg
+    background: var(--color-surface)
+    box-shadow: ds.$shadow-sm
+    transition: transform ds.$transition-base, box-shadow ds.$transition-base
+
+    &:hover
+      transform: translateY(-4px)
+      box-shadow: ds.$shadow-md
+
+  &__icon
+    display: grid
+    place-items: center
+    width: 3.5rem
+    height: 3.5rem
+    margin-bottom: ds.$space-2
+    border-radius: 50%
+    background: var(--color-accent-soft)
+    color: var(--color-accent-strong)
+
+  &__title
+    +ds.display
+    font-size: ds.$font-size-xl
+
+  &__text
+    color: var(--color-muted)

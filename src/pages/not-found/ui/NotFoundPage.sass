@@ -1,0 +1,21 @@
+@use "@/shared/styles" as ds
+
+.not-found-page
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  gap: ds.$space-5
+  min-height: 100dvh
+  padding: ds.$space-4
+  text-align: center
+
+  &__code
+    +ds.display
+    font-size: clamp(5rem, 18vw, 10rem)
+    font-style: italic
+    color: var(--color-accent)
+
+  &__title
+    +ds.display
+    font-size: ds.$font-size-2xl

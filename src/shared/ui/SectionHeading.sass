@@ -1,0 +1,28 @@
+@use "@/shared/styles" as ds
+
+.section-heading
+  display: flex
+  flex-direction: column
+  gap: ds.$space-3
+  max-width: 44rem
+  margin-bottom: ds.$space-10
+
+  +ds.media(md)
+    margin-bottom: ds.$space-12
+
+  &--center
+    align-items: center
+    margin-inline: auto
+    text-align: center
+
+  &__eyebrow
+    +ds.eyebrow
+
+  &__title
+    +ds.display
+    font-size: ds.$font-size-3xl
+    text-wrap: balance
+
+  &__subtitle
+    color: var(--color-muted)
+    font-size: ds.$font-size-lg

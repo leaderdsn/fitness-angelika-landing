@@ -1,0 +1,89 @@
+@use "@/shared/styles" as ds
+
+.content-editor
+  display: flex
+  flex-direction: column
+  gap: ds.$space-4
+
+  &__state
+    display: flex
+    align-items: center
+    gap: ds.$space-3
+    padding: ds.$space-6
+    color: var(--color-muted)
+
+    &--error
+      color: var(--color-danger)
+
+  &__tabs
+    display: flex
+    gap: ds.$space-1
+    overflow-x: auto
+    padding-bottom: ds.$space-1
+    scrollbar-width: thin
+
+  &__tab
+    position: relative
+    flex-shrink: 0
+    padding: ds.$space-2 ds.$space-4
+    border: 0
+    border-radius: ds.$radius-full
+    background: transparent
+    font-size: ds.$font-size-sm
+    font-weight: 600
+    color: var(--color-muted)
+    cursor: pointer
+    transition: background ds.$transition-fast, color ds.$transition-fast
+
+    &:hover
+      background: var(--color-sand)
+      color: var(--color-ink)
+
+    &--active,
+    &--active:hover
+      background: var(--color-ink)
+      color: var(--color-bg)
+
+    &--invalid::after
+      content: ''
+      position: absolute
+      top: 0.35rem
+      right: 0.45rem
+      width: 0.45rem
+      height: 0.45rem
+      border-radius: 50%
+      background: var(--color-danger)
+
+  &__panel
+    display: flex
+    flex-direction: column
+    gap: ds.$space-4
+
+  &__bar
+    position: sticky
+    bottom: ds.$space-4
+    z-index: 5
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    justify-content: space-between
+    gap: ds.$space-3
+    padding: ds.$space-3 ds.$space-3 ds.$space-3 ds.$space-5
+    border: 1px solid var(--color-border)
+    border-radius: ds.$radius-full
+    background: var(--color-surface)
+    box-shadow: ds.$shadow-md
+
+  &__status
+    display: inline-flex
+    align-items: center
+    gap: ds.$space-2
+    font-size: ds.$font-size-sm
+    color: var(--color-muted)
+
+    &--error
+      color: var(--color-danger)
+
+  &__actions
+    display: flex
+    gap: ds.$space-2

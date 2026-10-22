@@ -1,0 +1,56 @@
+@use "@/shared/styles" as ds
+
+.admin-dashboard
+  min-height: 100dvh
+  background: var(--color-bg)
+
+  &__header
+    position: sticky
+    top: 0
+    z-index: 10
+    border-bottom: 1px solid var(--color-border)
+    background: var(--color-surface)
+
+  &__header-inner
+    +ds.container
+    display: flex
+    align-items: center
+    gap: ds.$space-4
+    height: 3.75rem
+
+  &__brand
+    margin-right: auto
+    +ds.display
+    font-size: ds.$font-size-xl
+
+  &__site-link
+    display: inline-flex
+    align-items: center
+    gap: ds.$space-1
+    font-size: ds.$font-size-sm
+    font-weight: 600
+    color: var(--color-accent)
+
+  &__main
+    +ds.container
+    display: grid
+    gap: ds.$space-8
+    align-items: start
+    padding-block: ds.$space-6 ds.$space-12
+
+    +ds.media(xl)
+      grid-template-columns: minmax(0, 1fr) 22rem
+
+  &__editor
+    min-width: 0
+
+  &__aside
+    padding: ds.$space-6
+    border: 1px solid var(--color-border)
+    border-radius: ds.$radius-lg
+    background: var(--color-surface)
+
+    +ds.media(xl)
+      position: sticky
+      top: 5rem
+      order: 1

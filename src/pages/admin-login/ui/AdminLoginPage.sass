@@ -1,0 +1,29 @@
+@use "@/shared/styles" as ds
+
+.admin-login-page
+  display: grid
+  place-items: center
+  min-height: 100dvh
+  padding: ds.$space-4
+
+  &__card
+    display: flex
+    flex-direction: column
+    gap: ds.$space-4
+    width: min(100%, 24rem)
+    padding: ds.$space-8
+    border-radius: ds.$radius-xl
+    background: var(--color-surface)
+    box-shadow: ds.$shadow-md
+
+  &__eyebrow
+    +ds.eyebrow
+
+  &__title
+    +ds.display
+    font-size: ds.$font-size-3xl
+
+  &__back
+    align-self: center
+    font-size: ds.$font-size-sm
+    color: var(--color-muted)

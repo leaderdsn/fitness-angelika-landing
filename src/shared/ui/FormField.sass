@@ -1,0 +1,38 @@
+@use "@/shared/styles" as ds
+
+.form-field
+  display: flex
+  flex-direction: column
+  gap: ds.$space-1
+
+  &__label
+    font-size: ds.$font-size-sm
+    font-weight: 600
+
+  &__control
+    width: 100%
+    padding: ds.$space-2 ds.$space-3
+    border: 1px solid var(--color-border)
+    border-radius: ds.$radius-sm
+    background: var(--color-surface)
+    line-height: 1.5
+    resize: vertical
+    transition: border-color ds.$transition-fast
+
+    &:hover
+      border-color: var(--color-muted)
+
+    &:focus-visible
+      border-color: var(--color-accent)
+      outline: 2px solid var(--color-accent-soft)
+      outline-offset: 0
+
+  &__note
+    font-size: ds.$font-size-xs
+    color: var(--color-muted)
+
+  &--invalid &__control
+    border-color: var(--color-danger)
+
+  &--invalid &__note
+    color: var(--color-danger)
