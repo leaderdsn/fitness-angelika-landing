@@ -1,0 +1,25 @@
+@use "@/shared/styles" as ds
+
+.backup-panel
+  display: flex
+  flex-direction: column
+  gap: ds.$space-3
+
+  &__title
+    font-size: ds.$font-size-lg
+
+  &__text
+    font-size: ds.$font-size-sm
+    color: var(--color-muted)
+
+  &__actions
+    display: flex
+    flex-wrap: wrap
+    gap: ds.$space-2
+
+  &__error
+    font-size: ds.$font-size-sm
+    color: var(--color-danger)
+
+  &__input
+    display: none

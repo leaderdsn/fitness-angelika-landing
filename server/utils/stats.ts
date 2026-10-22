@@ -41,3 +41,29 @@ export async function collectStats(store: KeyValueStore, days: number, now = new
 
   return { days, daily, totals }
 }
+
+const STATS_PREFIX = 'stats:'
+const DATE_KEY_PATTERN = /^\d{4}-\d{2}-\d{2}$/
+
+async function storedDates(store: KeyValueStore): Promise<string[]> {
+  const keys = await store.getKeys(STATS_PREFIX)
+  return keys
+    .map((key) => key.slice(STATS_PREFIX.length))
+    .filter((date) => DATE_KEY_PATTERN.test(date))
+    .sort()
+}
+
+/** Every day from the first recorded click up to today; empty when nothing was recorded. */
+export async function collectAllStats(store: KeyValueStore, now = new Date()): Promise<ClickStats> {
+  const [first] = await storedDates(store)
+  const days = first ? Math.floor((Date.parse(toDateKey(now)) - Date.parse(first)) / DAY_MS) + 1 : 0
+  return collectStats(store, Math.max(days, 0), now)
+}
+
+/** Replaces all stored stats with the given days (used to restore a backup). */
+export async function replaceStats(store: KeyValueStore, daily: DailyClicks[]): Promise<void> {
+  await Promise.all((await storedDates(store)).map((date) => store.removeItem(statsKey(date))))
+  await Promise.all(
+    daily.map(({ date, telegram, instagram }) => store.setItem(statsKey(date), { telegram, instagram })),
+  )
+}

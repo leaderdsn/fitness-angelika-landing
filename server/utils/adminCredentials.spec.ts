@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import { createMemoryStore } from '../testing/memoryStore'
 import {
   RESET_TOKEN_TTL_MS,
   checkAdminPassword,
@@ -9,22 +10,6 @@ import {
   setAdminPassword,
 } from './adminCredentials'
 
-import type { KeyValueStore } from './keyValueStore'
-
-function createMemoryStore(): KeyValueStore {
-  const items = new Map<string, unknown>()
-  return {
-    getItem: <T>(key: string) => Promise.resolve((items.get(key) as T | undefined) ?? null),
-    setItem: (key, value) => {
-      items.set(key, value)
-      return Promise.resolve()
-    },
-    removeItem: (key) => {
-      items.delete(key)
-      return Promise.resolve()
-    },
-  }
-}
 
 describe('admin password', () => {
   it('falls back to the env password until a new one is set', async () => {

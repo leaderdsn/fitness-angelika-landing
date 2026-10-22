@@ -2,11 +2,12 @@ import { siteContentSchema } from '#shared/content'
 import { DEFAULT_CONTENT } from '#shared/defaultContent'
 
 import type { SiteContent } from '#shared/content'
+import type { KeyValueStore } from './keyValueStore'
 
 const CONTENT_KEY = 'content'
 
-export async function readContent(): Promise<SiteContent> {
-  const stored = await useStorage('data').getItem(CONTENT_KEY)
+export async function readContent(store: KeyValueStore = useStorage('data')): Promise<SiteContent> {
+  const stored = await store.getItem(CONTENT_KEY)
   if (stored === null) return DEFAULT_CONTENT
 
   const parsed = siteContentSchema.safeParse(stored)
@@ -16,6 +17,6 @@ export async function readContent(): Promise<SiteContent> {
   return DEFAULT_CONTENT
 }
 
-export async function writeContent(content: SiteContent): Promise<void> {
-  await useStorage('data').setItem(CONTENT_KEY, content)
+export async function writeContent(content: SiteContent, store: KeyValueStore = useStorage('data')): Promise<void> {
+  await store.setItem(CONTENT_KEY, content)
 }

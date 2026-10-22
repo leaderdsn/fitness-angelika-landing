@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { useHead } from '#app'
+import { reloadNuxtApp, useHead } from '#app'
 
 import { LogoutButton } from '@/features/admin-auth'
+import { BackupPanel } from '@/features/site-backup'
 import { AppIcon } from '@/shared/ui'
 import { ContentEditor } from '@/widgets/admin-content-editor'
 import { StatsPanel } from '@/widgets/admin-stats'
@@ -24,6 +25,7 @@ useHead({ title: 'Админка', meta: [{ name: 'robots', content: 'noindex, n
       <ContentEditor class="admin-dashboard__editor" />
       <aside class="admin-dashboard__aside">
         <StatsPanel />
+        <BackupPanel class="admin-dashboard__backup" @restored="reloadNuxtApp()" />
       </aside>
     </main>
   </div>

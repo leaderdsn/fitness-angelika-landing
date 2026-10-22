@@ -6,6 +6,12 @@ import { AppButton, AppIcon } from '@/shared/ui'
 
 const RECENT_DAYS = 14
 
+const EXPORTS = [
+  { format: 'xlsx', label: 'Excel' },
+  { format: 'pdf', label: 'PDF' },
+  { format: 'csv', label: 'CSV' },
+] as const
+
 const { data: stats, status, refresh } = useClickStats()
 
 const recentDays = computed(() => (stats.value?.daily ?? []).slice(-RECENT_DAYS).reverse())
@@ -55,6 +61,20 @@ const total = computed(() => (stats.value ? stats.value.totals.telegram + stats.
         </tbody>
       </table>
       <p class="stats-panel__hint">Считаются нажатия на кнопки Telegram и Instagram на сайте.</p>
+
+      <div class="stats-panel__export">
+        <span class="stats-panel__export-label">Скачать всю историю:</span>
+        <AppButton
+          v-for="item in EXPORTS"
+          :key="item.format"
+          :href="`/api/admin/stats/export?format=${item.format}`"
+          variant="secondary"
+          size="sm"
+        >
+          <AppIcon name="download" :size="16" />
+          {{ item.label }}
+        </AppButton>
+      </div>
     </template>
   </section>
 </template>
