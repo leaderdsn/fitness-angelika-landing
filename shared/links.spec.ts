@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { getInstagramUsername, isContactChannel, isInstagramUrl, isTelegramUrl, resolvePrimaryContact } from './links'
+import { getInstagramUsername, isContactChannel, isInstagramUrl, isTelegramUrl, normalizeUrl, resolvePrimaryContact } from './links'
 
 describe('contact links', () => {
   it('validates Telegram links', () => {
@@ -27,6 +27,12 @@ describe('contact links', () => {
       channel: 'telegram',
       href: 'https://t.me/angelika',
     })
+  })
+
+  it('normalizes sloppy links that a browser would treat as relative', () => {
+    expect(normalizeUrl('https:/t.me/fitness_angelika')).toBe('https://t.me/fitness_angelika')
+    expect(normalizeUrl('https://www.instagram.com/fitness.angelika/')).toBe('https://www.instagram.com/fitness.angelika/')
+    expect(normalizeUrl('')).toBe('')
   })
 
   it('narrows contact channels', () => {

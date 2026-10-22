@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { isInstagramUrl, isTelegramUrl } from './links'
+import { isInstagramUrl, isTelegramUrl, normalizeUrl } from './links'
 
 export const DIRECTION_ICONS = ['diastasis', 'posture', 'stretch', 'dance', 'kids', 'gym'] as const
 
@@ -30,10 +30,15 @@ export const siteContentSchema = z.object({
       .trim()
       .refine((value) => value === '' || isTelegramUrl(value), {
         message: 'Ссылка вида https://t.me/username',
-      }),
-    instagramUrl: z.string().trim().refine(isInstagramUrl, {
-      message: 'Ссылка вида https://www.instagram.com/username/',
-    }),
+      })
+      .transform(normalizeUrl),
+    instagramUrl: z
+      .string()
+      .trim()
+      .refine(isInstagramUrl, {
+        message: 'Ссылка вида https://www.instagram.com/username/',
+      })
+      .transform(normalizeUrl),
     ctaLabel: requiredText(40),
   }),
   seo: z.object({

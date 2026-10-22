@@ -14,6 +14,14 @@ function parseHttpsUrl(value: string): URL | null {
   }
 }
 
+/**
+ * Canonical form of a link. URL parsing accepts sloppy input such as "https:/t.me/name",
+ * but a browser on an https page resolves that as a path on the current site.
+ */
+export function normalizeUrl(value: string): string {
+  return parseHttpsUrl(value)?.href ?? value
+}
+
 export function isTelegramUrl(value: string): boolean {
   const url = parseHttpsUrl(value)
   return url !== null && TELEGRAM_HOSTS.has(url.hostname) && url.pathname.length > 1

@@ -13,6 +13,14 @@ describe('siteContentSchema', () => {
     expect(parsed.finalCta.title).toBe('Пишите')
   })
 
+  it('stores contact links in canonical form', () => {
+    const parsed = siteContentSchema.parse({
+      ...DEFAULT_CONTENT,
+      contacts: { ...DEFAULT_CONTENT.contacts, telegramUrl: 'https:/t.me/fitness_angelika' },
+    })
+    expect(parsed.contacts.telegramUrl).toBe('https://t.me/fitness_angelika')
+  })
+
   it('rejects foreign links and images', () => {
     const result = siteContentSchema.safeParse({
       ...DEFAULT_CONTENT,
