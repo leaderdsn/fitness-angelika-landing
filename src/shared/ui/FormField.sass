@@ -27,6 +27,37 @@
       outline: 2px solid var(--color-accent-soft)
       outline-offset: 0
 
+  &__input
+    position: relative
+
+  // Leaves room for the show/hide button inside the field.
+  &__input--password &__control
+    padding-right: ds.$space-10
+
+  &__toggle
+    position: absolute
+    top: 50%
+    right: ds.$space-1
+    display: grid
+    place-items: center
+    width: ds.$space-8
+    height: ds.$space-8
+    padding: 0
+    border: 0
+    border-radius: ds.$radius-sm
+    background: none
+    color: var(--color-muted)
+    cursor: pointer
+    transform: translateY(-50%)
+    transition: color ds.$transition-fast
+
+    &:hover
+      color: var(--color-ink)
+
+    &:focus-visible
+      outline: 2px solid var(--color-accent)
+      outline-offset: 0
+
   &__note
     font-size: ds.$font-size-xs
     color: var(--color-muted)
