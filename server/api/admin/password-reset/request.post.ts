@@ -21,7 +21,9 @@ export default defineEventHandler(async (event) => {
 
   const token = await createResetToken(useStorage('data'))
   // The link is built from the configured site URL, never from the request Host header.
-  const link = new URL(`/admin/reset-password?token=${token}`, publicConfig.siteUrl).toString()
+  const link = new URL(`/admin/reset-password?token=${token}`, publicConfig.siteUrl)
+  // Telegram does not turn localhost URLs into links, but it does for loopback IPs.
+  if (link.hostname === 'localhost') link.hostname = '127.0.0.1'
   const minutes = RESET_TOKEN_TTL_MS / 60_000
 
   try {
@@ -32,7 +34,7 @@ export default defineEventHandler(async (event) => {
     )
   } catch (cause) {
     console.error('[password-reset] failed to send Telegram message', cause)
-    throw createError({ statusCode: 502, statusMessage: 'Не удалось отправить сообщение в Telegram' })
+    throw createError({ statusCode: 502, statusMessage: 'Telegram сейчас недоступен, попробуйте через минуту' })
   }
 
   return { sent: true }

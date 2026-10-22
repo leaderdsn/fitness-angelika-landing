@@ -18,7 +18,7 @@ async function submit(): Promise<void> {
     await requestPasswordReset()
     sent.value = true
   } catch (cause) {
-    error.value = getErrorMessage(cause, 'Не удалось отправить ссылку')
+    error.value = getErrorMessage(cause, 'Не удалось отправить ссылку, попробуйте ещё раз')
   } finally {
     pending.value = false
   }

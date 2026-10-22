@@ -12,7 +12,7 @@ const forgotPassword = ref(false)
 </script>
 
 <template>
-  <AuthCard eyebrow="Админка сайта" :title="forgotPassword ? 'Восстановление пароля' : 'Вход'">
+  <AuthCard eyebrow="Админка сайта" :title="forgotPassword ? 'Сброс пароля' : 'Вход'">
     <ForgotPasswordForm v-if="forgotPassword" />
     <LoginForm v-else @success="navigateTo('/admin')" />
     <button type="button" class="admin-login-page__link" @click="forgotPassword = !forgotPassword">
