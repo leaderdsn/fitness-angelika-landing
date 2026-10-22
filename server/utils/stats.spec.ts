@@ -12,6 +12,10 @@ function createMemoryStore(): KeyValueStore {
       items.set(key, value)
       return Promise.resolve()
     },
+    removeItem: (key) => {
+      items.delete(key)
+      return Promise.resolve()
+    },
   }
 }
 

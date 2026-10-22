@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
-import { isPasswordValid } from '../../utils/password'
+import { checkAdminPassword, getStoredPassword } from '../../utils/adminCredentials'
 import { createRateLimiter } from '../../utils/rateLimit'
-import { useAdminSession } from '../../utils/session'
+import { signIn } from '../../utils/session'
 
 const loginSchema = z.object({ password: z.string().min(1).max(200) })
 
@@ -17,16 +17,17 @@ export default defineEventHandler(async (event) => {
 
   const { password } = await readValidatedBody(event, (body) => loginSchema.parse(body))
   const { adminPassword } = useRuntimeConfig(event)
+  const store = useStorage('data')
+  const stored = await getStoredPassword(store)
 
-  if (!adminPassword) {
+  if (!stored && !adminPassword) {
     throw createError({ statusCode: 503, statusMessage: 'Пароль администратора не задан (NUXT_ADMIN_PASSWORD)' })
   }
-  if (!isPasswordValid(password, adminPassword)) {
+  if (!(await checkAdminPassword(store, password, adminPassword))) {
     throw createError({ statusCode: 401, statusMessage: 'Неверный пароль' })
   }
 
   limiter.reset(ip)
-  const session = await useAdminSession(event)
-  await session.update({ authenticated: true })
+  await signIn(event, stored?.changedAt ?? 0)
   return { authenticated: true }
 })

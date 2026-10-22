@@ -7,7 +7,7 @@
 - **Лендинг с SSR** (Nuxt 4): секции «Узнаёте себя?», «Направления», «Как проходит работа», «Форматы и цены», «Обо мне», «Отзывы», «Вопросы», финальный призыв. На мобильных — липкая панель с кнопками мессенджеров.
 - **SEO**: title/description и Open Graph из админки, canonical, разметка schema.org `Person`, `robots.txt`.
 - **Админка** `/admin`:
-  - вход по паролю;
+  - вход по паролю и восстановление пароля через Telegram;
   - ссылки на Telegram и Instagram, текст основной кнопки;
   - тексты всех секций, списки (добавить, удалить, переместить);
   - загрузка фото для главного экрана и блока «Обо мне»;
@@ -36,7 +36,17 @@ pnpm dev               # http://localhost:3000, админка — /admin
 |---|---|
 | `NUXT_ADMIN_PASSWORD` | Пароль для входа в админку. Пока он пустой, вход отключён. |
 | `NUXT_SESSION_SECRET` | Ключ шифрования cookie сессии, не короче 32 символов: `openssl rand -hex 32`. |
-| `NUXT_PUBLIC_SITE_URL` | Публичный адрес сайта, используется для canonical и Open Graph. |
+| `NUXT_PUBLIC_SITE_URL` | Публичный адрес сайта, используется для canonical, Open Graph и ссылки восстановления пароля. |
+| `NUXT_TELEGRAM_BOT_TOKEN` | Токен Telegram-бота, который присылает ссылку для смены пароля. Без него восстановление отключено. |
+| `NUXT_TELEGRAM_CHAT_ID` | ID чата администратора, куда бот отправляет ссылку. |
+
+### Восстановление пароля
+
+1. Создайте бота у [@BotFather](https://t.me/BotFather) и запишите токен в `NUXT_TELEGRAM_BOT_TOKEN`.
+2. Напишите боту любое сообщение с аккаунта администратора, затем откройте `https://api.telegram.org/bot<токен>/getUpdates` и возьмите `message.chat.id` — это `NUXT_TELEGRAM_CHAT_ID`.
+3. На странице входа нажмите «Забыли пароль?» — бот пришлёт одноразовую ссылку, она действует 30 минут.
+
+Новый пароль хранится хэшем в `.data/db/admin-password` и с этого момента заменяет `NUXT_ADMIN_PASSWORD`; все открытые сессии админки завершаются. Чтобы снова входить с паролем из окружения, удалите этот файл.
 
 ## Скрипты
 
@@ -93,7 +103,7 @@ NUXT_ADMIN_PASSWORD=... NUXT_SESSION_SECRET=... NUXT_PUBLIC_SITE_URL=https://...
 ```
 src/
   app/        # App.vue, AppError.vue, routes/ (маршруты Nuxt), middleware/, глобальные стили
-  pages/      # landing, admin-login, admin-dashboard, not-found
+  pages/      # landing, admin-login, admin-reset-password, admin-dashboard, not-found
   widgets/    # секции лендинга, шапка, подвал, мобильная панель, редактор контента, статистика
   features/   # contact-link, admin-auth, edit-content, upload-image
   entities/   # site-content, click-stats
@@ -116,6 +126,8 @@ shared/       # Zod-схема контента, контент по умолч�
 | POST | `/api/admin/login` | — | Вход (не больше 10 попыток за 15 минут с одного IP) |
 | POST | `/api/admin/logout` | — | Выход |
 | GET | `/api/admin/session` | — | Статус сессии |
+| POST | `/api/admin/password-reset/request` | — | Отправка ссылки для смены пароля в Telegram (не больше 3 запросов за 15 минут с одного IP) |
+| POST | `/api/admin/password-reset/confirm` | — | Установка нового пароля по одноразовой ссылке и вход |
 | PUT | `/api/admin/content` | админ | Сохранение контента (проверка по Zod-схеме) |
 | POST | `/api/admin/upload` | админ | Загрузка фото: JPG, PNG или WebP до 5 МБ, формат определяется по сигнатуре файла |
 | GET | `/api/admin/stats` | админ | Переходы за 30 дней |

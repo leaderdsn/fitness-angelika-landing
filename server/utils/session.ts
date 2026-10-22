@@ -1,6 +1,8 @@
+import { getPasswordStamp } from './adminCredentials'
+
 import type { H3Event } from 'h3'
 
-type AdminSessionData = { authenticated?: boolean }
+type AdminSessionData = { authenticated?: boolean; passwordStamp?: number }
 
 const SESSION_MAX_AGE = 60 * 60 * 24 * 7
 
@@ -29,7 +31,13 @@ export function useAdminSession(event: H3Event) {
   })
 }
 
+export async function signIn(event: H3Event, passwordStamp: number): Promise<void> {
+  const session = await useAdminSession(event)
+  await session.update({ authenticated: true, passwordStamp })
+}
+
 export async function isAdmin(event: H3Event): Promise<boolean> {
   const session = await useAdminSession(event)
-  return session.data.authenticated === true
+  if (session.data.authenticated !== true) return false
+  return (session.data.passwordStamp ?? 0) === (await getPasswordStamp(useStorage('data')))
 }

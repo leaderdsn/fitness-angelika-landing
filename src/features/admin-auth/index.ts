@@ -1,3 +1,5 @@
 export { isAuthenticated, login, logout } from './api/adminAuthApi'
+export { default as ForgotPasswordForm } from './ui/ForgotPasswordForm.vue'
 export { default as LoginForm } from './ui/LoginForm.vue'
 export { default as LogoutButton } from './ui/LogoutButton.vue'
+export { default as ResetPasswordForm } from './ui/ResetPasswordForm.vue'

@@ -1,6 +1,11 @@
 import { isAdmin } from '../utils/session'
 
-const PUBLIC_ADMIN_ROUTES = new Set(['/api/admin/login', '/api/admin/session'])
+const PUBLIC_ADMIN_ROUTES = new Set([
+  '/api/admin/login',
+  '/api/admin/session',
+  '/api/admin/password-reset/request',
+  '/api/admin/password-reset/confirm',
+])
 
 export default defineEventHandler(async (event) => {
   const path = event.path.split('?')[0] ?? ''

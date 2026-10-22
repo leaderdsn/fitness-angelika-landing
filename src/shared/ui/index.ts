@@ -1,5 +1,6 @@
 export { default as AppButton } from './AppButton.vue'
 export { default as AppIcon } from './AppIcon.vue'
+export { default as AuthCard } from './AuthCard.vue'
 export { default as BaseIcon } from './BaseIcon.vue'
 export { default as FormField } from './FormField.vue'
 export { default as FormSelect } from './FormSelect.vue'

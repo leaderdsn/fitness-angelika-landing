@@ -49,9 +49,12 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    // Overridden by NUXT_ADMIN_PASSWORD / NUXT_SESSION_SECRET at runtime.
+    // Overridden by NUXT_ADMIN_PASSWORD / NUXT_SESSION_SECRET / NUXT_TELEGRAM_* at runtime.
     adminPassword: '',
     sessionSecret: '',
+    // Password recovery: the reset link is sent to this chat by this bot.
+    telegramBotToken: '',
+    telegramChatId: '',
     public: {
       siteUrl: 'http://localhost:3000',
     },
