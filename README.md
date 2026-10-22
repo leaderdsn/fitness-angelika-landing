@@ -60,6 +60,23 @@ docker compose up -d --build
 
 Данные лежат в volume `site-data`, поэтому переживают пересборку контейнера.
 
+Команды выполняются из папки проекта:
+
+| Что сделать | Команда |
+|---|---|
+| Остановить | `docker compose down` |
+| Запустить снова | `docker compose up -d` |
+| Пересобрать после изменений в коде | `docker compose up -d --build` |
+| Посмотреть логи | `docker compose logs -f` |
+
+У контейнера свои данные (volume `site-data`), у `pnpm dev` — папка `./.data`: правки в одной админке не видны в другой. Оба используют порт 3000, поэтому одновременно их не запустить. Перенести данные из `./.data` в контейнер:
+
+```bash
+docker compose cp ./.data/. site:/app/.data
+docker compose exec -u root site chown -R node:node /app/.data
+docker compose restart
+```
+
 ### Без Docker
 
 ```bash
