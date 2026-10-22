@@ -1,6 +1,7 @@
 export type ImageType = { extension: 'jpg' | 'png' | 'webp'; mime: string }
 
-export const MAX_IMAGE_BYTES = 5 * 1024 * 1024
+// Netlify functions cap request and response bodies at ~6 MB, and binary bodies grow by a third in base64.
+export const MAX_IMAGE_BYTES = 4 * 1024 * 1024
 
 const MIME_BY_EXTENSION: Record<ImageType['extension'], string> = {
   jpg: 'image/jpeg',

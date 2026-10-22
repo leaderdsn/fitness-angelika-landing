@@ -1,5 +1,7 @@
 import { fileURLToPath } from 'node:url'
 
+// Netlify sets NETLIFY=true during its builds; Nitro then picks the netlify preset itself.
+const NETLIFY_BUILD = process.env.NETLIFY === 'true'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-10-01',
@@ -61,10 +63,16 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    storage: {
-      data: { driver: 'fs', base: './.data/db' },
-      media: { driver: 'fs', base: './.data/media' },
-    },
+    storage: NETLIFY_BUILD
+      ? {
+          // Netlify functions have no persistent disk, so data lives in Netlify Blobs.
+          data: { driver: 'netlify-blobs', name: 'data' },
+          media: { driver: 'netlify-blobs', name: 'media' },
+        }
+      : {
+          data: { driver: 'fs', base: './.data/db' },
+          media: { driver: 'fs', base: './.data/media' },
+        },
     devStorage: {
       data: { driver: 'fs', base: './.data/db' },
       media: { driver: 'fs', base: './.data/media' },

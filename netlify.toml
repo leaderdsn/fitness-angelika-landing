@@ -1,0 +1,4 @@
+# Netlify builds on every push to main; NETLIFY=true switches storage to Netlify Blobs (see nuxt.config.ts).
+[build]
+  command = "pnpm build"
+  publish = "dist"

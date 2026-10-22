@@ -47,7 +47,7 @@ async function onChange(event: Event): Promise<void> {
         </AppButton>
         <AppButton v-if="src" variant="ghost" size="sm" @click="src = ''">Убрать</AppButton>
         <p class="image-upload__hint" :class="{ 'image-upload__hint--error': error }">
-          {{ error || 'JPG, PNG или WebP до 5 МБ. Лучше вертикальное фото 4:5.' }}
+          {{ error || 'JPG, PNG или WebP до 4 МБ. Лучше вертикальное фото 4:5.' }}
         </p>
       </div>
     </div>

@@ -8,6 +8,7 @@ node_modules
 .nitro
 .cache
 dist
+.netlify
 
 # Runtime data (content, uploaded photos, stats)
 .data

@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Файл не передан' })
   }
   if (file.data.byteLength > MAX_IMAGE_BYTES) {
-    throw createError({ statusCode: 413, statusMessage: 'Файл больше 5 МБ' })
+    throw createError({ statusCode: 413, statusMessage: 'Файл больше 4 МБ' })
   }
 
   const type = detectImageType(file.data)

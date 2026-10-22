@@ -9,7 +9,8 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, statusMessage: 'Not found' })
   }
 
-  const data = await useStorage('media').getItemRaw<Buffer>(id)
+  // The fs driver returns a Buffer, Netlify Blobs an ArrayBuffer.
+  const data = await useStorage('media').getItemRaw<Buffer | ArrayBuffer>(id)
   if (!data) {
     throw createError({ statusCode: 404, statusMessage: 'Not found' })
   }
@@ -17,5 +18,5 @@ export default defineEventHandler(async (event) => {
   // File names are unique per upload, so the response never changes.
   setHeader(event, 'Content-Type', mime)
   setHeader(event, 'Cache-Control', 'public, max-age=31536000, immutable')
-  return data
+  return data instanceof ArrayBuffer ? Buffer.from(data) : data
 })

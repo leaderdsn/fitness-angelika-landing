@@ -29,6 +29,7 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "@netlify/blobs": "^11.1.6",
     "nuxt": "^4.6.2",
     "vue": "^3.5.44",
     "vue-router": "^5.4.0",
